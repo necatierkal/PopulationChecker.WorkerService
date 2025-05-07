@@ -27,9 +27,9 @@ namespace PopulationChecker.WorkerService.Services
                 var client = new PopulationServiceReference.KPSPublicSoapClient(
                     PopulationServiceReference.KPSPublicSoapClient.EndpointConfiguration.KPSPublicSoap);
 
-                long tckn = 25588644316; // Gerçek bir TCKN yerine örnek numara
-                string ad = "Necati";
-                string soyad = "ERKAL";
+                long tckn = 12345679810; // Gerçek bir TCKN yerine örnek numara
+                string ad = "Deneme";
+                string soyad = "DENEME";
                 int dogumYili = 1989;
 
                 var response = await client.TCKimlikNoDogrulaAsync(tckn, ad, soyad, dogumYili);
