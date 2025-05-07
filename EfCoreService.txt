@@ -1,0 +1,75 @@
+PopulationChecker/
+├── PopulationChecker.WorkerService/   ← Worker Service (ana proje)
+│   ├── Services/
+│   │   └── PopulationService.cs       ← SOAP çağrısı ve işlem mantığı
+│   ├── Models/
+│   │   └── CitizenInfo.cs             ← Nüfus bilgileri modeli
+│   ├── Logs/                          ← Log klasörü
+│   ├── appsettings.json               ← Ayarlar ve bağlantı stringi
+│   ├── Program.cs
+│   └── Worker.cs                      ← Zamanlanmış iş burada başlar
+
+
+
+PopulationChecker.WorkerService/
+├── Data/
+│   └── ApplicationDbContext.cs
+├── Models/
+│   └── CitizenInfo.cs
+├── Services/
+│   └── PopulationService.cs
+├── Worker.cs
+├── Program.cs
+
+
+
+----Projeyi Oluşturma
+
+dotnet new worker -n PopulationChecker.WorkerService
+cd PopulationChecker.WorkerService
+
+---- Gerekli Nuget Paketleri
+dotnet add package Microsoft.Extensions.Http
+dotnet add package System.ServiceModel.Duplex
+dotnet add package System.ServiceModel.Http
+dotnet add package System.ServiceModel.NetTcp
+dotnet add package System.ServiceModel.Security
+dotnet add package Serilog.AspNetCore
+dotnet add package Serilog.Sinks.File
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+
+------ Wsdl Eklemek
+
+WSDL’yi Eklemek (Connected Service)
+Visual Studio’da:
+
+PopulationChecker.WorkerService projesine sağ tık > Add > "Connected Service"
+
+"Microsoft WCF Web Service Reference Provider"
+
+WSDL URL’sini gir → örn: https://x.gov.tr/service.asmx?wsdl
+
+Service adı: PopulationServiceReference
+
+
+
+
+-----------Migration için gerekli paketleri kur
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+------EF Tool yüklü değilse
+dotnet tool install --global dotnet-ef
+
+-------Migration Oluştur
+
+dotnet ef migrations add InitialCreate
+
+
+-------VeriTabanı oluştur
+
+dotnet ef database update
+
+
